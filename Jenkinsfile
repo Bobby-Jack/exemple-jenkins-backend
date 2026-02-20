@@ -19,7 +19,7 @@ pipeline {
             steps {
                 // --build force la reconstruction de l'image avec le nouveau code
                 // -d lance en arrière-plan (detach)
-                sh 'docker compose -f docker-compose.app.yml up -d --build'
+                sh 'docker compose up -d --build -f docker-compose.app.yml'
             }
         }
         
@@ -30,21 +30,3 @@ pipeline {
         }
        }
 
-//        stage("Install dependencies") {
-//            steps {
-//                sh 'node --version'
-//                sh 'npm --version'
-//                sh 'npm install'
-//            }
-//        }
-
-//      Attention à ne pas faire ceci, car comme constaté
-//      jenkins attends que le processus se termine, et comme npm start est un processus qui tourne en continu,
-//      le pipeline ne se terminera jamais
-//        stage("Start application") {
-//            steps {
-//                sh 'npm start'
-//            }
-//        }
-    
-}
