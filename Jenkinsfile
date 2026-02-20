@@ -18,7 +18,7 @@ pipeline {
         stage("Build container") {
             steps {
                 sh 'docker --version'
-                sh 'docker images rm -f my-node-app || true'
+                sh 'docker image rm -f my-node-app || true'
                 sh 'docker build -t my-node-app .'
             }
         }
