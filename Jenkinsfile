@@ -8,7 +8,7 @@ pipeline {
     agent any
 
     environment {
-        DB_HOST = '127.0.0.1'
+        DB_HOST = 'db'
         DB_USER = 'db_user'
         DB_PASSWORD = 'db_password'
         DB_NAME = 'db_name'
@@ -17,17 +17,22 @@ pipeline {
     stages {
         stage("Build container") {
             steps {
+                // !!!! Attention !!!! : Assurez-vous que :
+                // 1. Docker est installé et configuré sur votre machine Jenkins.
+                // 2. Votre Jenkins a les permissions nécessaires pour exécuter des commandes Docker.
                 sh 'docker --version'
-                sh 'docker images rm -f my-node-app || true'
+                // On utilise "|| true" pour éviter que le pipeline échoue si le conteneur n'existe pas ou est déjà arrêté
+                sh 'docker stop my-node-app || true'
+                // On supprime l'image existante pour éviter les conflits.
+                sh 'docker image rm -f my-node-app || true'
                 sh 'docker build -t my-node-app .'
             }
         }
 
         stage('Stop existing container') {
             steps {
-            //     On utilise "|| true" pour éviter que le pipeline échoue si le conteneur n'existe pas ou est déjà arrêté
-                sh 'docker stop my-node-app || true'
-                sh 'docker rm my-node-app || true'
+                // On supprime le container existant pour éviter les conflits.
+                sh 'docker container rm my-node-app || true'
             }
         }
 
