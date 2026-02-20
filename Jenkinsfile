@@ -17,6 +17,8 @@ pipeline {
     stages {
         stage("Build container") {
             steps {
+                sh 'docker --version'
+                sh 'docker images rm -f my-node-app || true'
                 sh 'docker build -t my-node-app .'
             }
         }
@@ -25,6 +27,7 @@ pipeline {
             steps {
             //     On utilise "|| true" pour éviter que le pipeline échoue si le conteneur n'existe pas ou est déjà arrêté
                 sh 'docker stop my-node-app || true'
+                sh 'docker rm my-node-app || true'
             }
         }
 
