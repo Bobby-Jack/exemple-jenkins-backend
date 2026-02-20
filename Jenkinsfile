@@ -19,7 +19,7 @@ pipeline {
             steps {
                 // --build force la reconstruction de l'image avec le nouveau code
                 // -d lance en arrière-plan (detach)
-                sh 'docker compose -f docker-compose.app.yml up -d --build'
+                sh 'docker compose up -d --build -f docker-compose.app.yml'
             }
         }
         
