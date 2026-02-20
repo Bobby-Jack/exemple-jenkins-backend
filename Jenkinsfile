@@ -10,17 +10,22 @@ pipeline {
         DB_PASSWORD = 'db_password'
         DB_NAME = 'db_name'
     }
+
     stages {
-        stage("Install dependencies") {
+        stage("build container") {
             steps {
-                sh 'node --version'
-                sh 'npm --version'
-                sh 'npm install'
+                sh 'docker build -t my-node-app .'
             }
         }
-        stage("start app") {
+        stage("stop existing container") {
             steps {
-                sh 'npm start'
+                sh 'docker stop my-node-app || true'
+                sh 'docker rm my-node-app || true'
+            }
+        }
+        stage("run container") {
+            steps {
+                sh 'docker run -d --name my-node-app -p 3000:3000 -e DB_HOST=$DB_HOST -e DB_USER=$DB_USER -e DB_PASSWORD=$DB_PASSWORD -e DB_NAME=$DB_NAME my-node-app'
             }
         }
     }
