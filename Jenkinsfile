@@ -5,7 +5,7 @@ pipeline {
         stage('Deploy with Compose') {
             steps {
                 // On s'assure que les fichiers .env sont présents dans le workspace
-                sh 'docker-compose -f docker-compose.app.yml up -d --build'
+                sh 'docker-compose -f docker-compose.app.yml up -d --build --remove-orphans'
             }
         }
         
