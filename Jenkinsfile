@@ -17,9 +17,8 @@ pipeline {
     stages {
        stage('Deploy with Compose') {
             steps {
-                // --build force la reconstruction de l'image avec le nouveau code
-                // -d lance en arrière-plan (detach)
-                sh 'docker compose up -d --build -f docker-compose.app.yml'
+           
+                sh 'docker-compose up -d --build -f docker-compose.app.yml'
             }
         }
         
