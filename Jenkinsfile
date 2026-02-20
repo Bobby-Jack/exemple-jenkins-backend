@@ -15,34 +15,19 @@ pipeline {
     }
 
     stages {
-        stage("Build container") {
+       stage('Deploy with Compose') {
             steps {
-                sh 'docker --version'
-                sh 'docker image rm -f my-node-app || true'
-                sh 'docker build -t my-node-app .'
+                // --build force la reconstruction de l'image avec le nouveau code
+                // -d lance en arrière-plan (detach)
+                sh 'docker compose -f docker-compose.app.yml up -d --build'
             }
         }
-
-        stage('Stop existing container') {
+        
+        stage('Check Health') {
             steps {
-            //     On utilise "|| true" pour éviter que le pipeline échoue si le conteneur n'existe pas ou est déjà arrêté
-                sh 'docker stop my-node-app || true'
-                sh 'docker rm my-node-app || true'
+                sh 'docker ps | grep my-node-app'
             }
         }
-
-        stage('Run container') {
-            steps {
-                sh '''
-                    docker run -d --name my-node-app \
-                    -p 3000:3000 \
-                    -e DB_HOST=${DB_HOST} \
-                    -e DB_USER=${DB_USER} \
-                    -e DB_PASSWORD=${DB_PASSWORD} \
-                    -e DB_NAME=${DB_NAME} \
-                    my-node-app
-                '''
-            }
        }
 
 //        stage("Install dependencies") {
@@ -61,5 +46,5 @@ pipeline {
 //                sh 'npm start'
 //            }
 //        }
-    }
+    
 }
