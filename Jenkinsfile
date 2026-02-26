@@ -13,7 +13,7 @@ pipeline {
                 // !!!! Attention !!!! : Assurez-vous que :
                 // 1. Docker est installé et configuré sur votre machine Jenkins.
                 // 2. Votre Jenkins a les permissions nécessaires pour exécuter des commandes Docker.
-                //sh 'docker --version'
+                sh 'docker --version'
                 // On supprime l'image existante pour éviter les conflits.
                 //sh 'docker image rm -f deployment || true'
                 //sh 'docker build -t deployment .'
