@@ -18,7 +18,7 @@ pipeline {
                 //sh 'docker image rm -f deployment || true'
                 //sh 'docker build -t deployment .'
                 // Exporter l'image
-                sh 'docker save deployment -o ./deployment.tar'
+                //sh 'docker save deployment -o ./deployment.tar'
             }
         }
 
