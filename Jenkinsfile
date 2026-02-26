@@ -15,8 +15,8 @@ pipeline {
                 // 2. Votre Jenkins a les permissions nécessaires pour exécuter des commandes Docker.
                 sh 'docker --version'
                 // On supprime l'image existante pour éviter les conflits.
-                sh 'docker image rm -f my-node-app || true'
-                sh 'docker build -t my-node-app .'
+                sh 'docker image rm -f deployment || true'
+                sh 'docker build -t deployment .'
                 // Exporter l'image
                 sh 'docker save deployment -o ./deployment.tar'
             }
