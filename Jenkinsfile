@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        SSH_SERVER = creditals('ssh-server')
+        SSH_SERVER = credentials('ssh-server')
         SSH_KEY_CREDENTIALS_ID = 'prod-server-key'
-        DEPLOY_PATH = creditals('deployment-prod')
+        DEPLOY_PATH = credentials('deployment-prod')
     }
 
     stages {
