@@ -35,7 +35,7 @@ services:
         aliases:
           - docker
 #    ports:
-#      - 2376:2376
+#      - 127.0.0.1:2376:2376
     tty: true
     volumes:
       - jenkins-data:/var/jenkins_home
